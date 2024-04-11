@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+    <h1>Employees</h1>
+
+    <table class="table">
+        <thead>
+            <th>firstname</th>
+            <th>lastname</th>
+            <th>phonenumber</th>
+            <th>age</th>
+            <th>department</th>
+            <th>action</th>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{  employee.firstname}}</td>
+                <td>{{  employee.lname}}</td>
+                <td>{{  employee.phonenumber}}</td>
+                <td>{{  employee.age}}</td>
+                <td>{{ employee.department.name }}</td>
+                <td><a class="btn btn-warning" href="{{ path('update_employee',{id:employee.id}) }}">update</a>
+                <a class="btn btn-danger" href="{{ path('delete_employee',{id:employee.id}) }}">delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <a class="btn btn-success" href="{{ path('add_employee') }}">add</a>
+    </div>
+{% endblock %}
