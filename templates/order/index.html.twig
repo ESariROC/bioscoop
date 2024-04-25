@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% for p in products %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{ asset(p.image) }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ p.name }}</h5>
+                    <p class="card-text">{{ p.description }}</p>
+                    <a href="{{ path('app_makeorder',{id:p.id}) }}" class="btn btn-primary">Order</a>
+                </div>
+            </div>
+        {% endfor %}
+        <a class="btn btn-success" href="{{path('show_winkelwagen')}}">winkelwagen</a>
+    </div>
+
+</div>
+{% endblock %}

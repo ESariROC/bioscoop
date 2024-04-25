@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% for l in orderLines %}
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ asset(l.product.image) }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ l.product.name }}</h5>
+                        <p class="card-text">{{ l.product.description }}</p>
+                        <h4>{{ l.amount}}</h4>
+                    </div>
+                </div>
+            {% endfor %}
+            <a class="btn btn-danger" href="{{ path('clear_winkelwagen') }}">leeg winkelwagen</a>
+            <a class="btn btn-success" href="{{ path('order_winkelwagen')}}">bestel</a>
+
+        </div>
+        <div >
+            <a class="btn btn-success" href="{{ path('app_order')}}">back</a>
+        </div>
+
+    </div>
+{% endblock %}
