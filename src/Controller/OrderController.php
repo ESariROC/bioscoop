@@ -22,9 +22,7 @@ class OrderController extends AbstractController
         $products=$em->getRepository(Product::class)->findAll();
         //dd($employees);
 
-        return $this->render('order/index.html.twig',[
-            'products'=>$products
-        ]);
+        return $this->render('order/index.html.twig',['products'=>$products]);
     }
 
     #[Route('/clear/winkelwagen',name:'clear_winkelwagen')]
@@ -41,8 +39,8 @@ class OrderController extends AbstractController
     #[Route('/order/winkelwagen',name:'order_winkelwagen')]
     public function orderWinkelwagen(EntityManagerInterface $em,Request $request)
     {
-        $p=$request->getSession()->get('order');
-        if(!$p) {
+        $order = $request->getSession()->get('order');
+        if(!$order) {
             $this->addFlash('danger','Je hebt geen producten');
             return $this->redirectToRoute('app_order');
         }
@@ -50,7 +48,7 @@ class OrderController extends AbstractController
         $order->setDate(new \DateTime('now'));
         $order->setStatus('In behandeling');
 
-        foreach ($p as $line) {
+        foreach ($order as $line) {
             $orderLine=new OrderLine();
             $product=$em->getRepository(Product::class)->find($line[0]);
             $orderLine->setProduct($product);
@@ -70,7 +68,7 @@ class OrderController extends AbstractController
     #[Route('/show/winkelwagen',name:'show_winkelwagen')]
     public function showWinkelwagen(EntityManagerInterface $em,Request $request)
     {
-        $order=$request->getSession()->get('order');
+        $order = $request->getSession()->get('order');
         if(!$order) {
             $this->addFlash('danger','Je hebt geen producten');
             return $this->redirectToRoute('app_order');
