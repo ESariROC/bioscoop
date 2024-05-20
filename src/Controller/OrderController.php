@@ -74,7 +74,7 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('app_order');
         }
 
-        $orderlinesLines=[];
+        $orderLines=[];
         foreach ($order as $line) {
             $orderLine=new OrderLine();
             $product=$em->getRepository(Product::class)->find($line[0]);
@@ -102,7 +102,7 @@ class OrderController extends AbstractController
         $session=$request->getSession();
         $form->handleRequest($request);
         if($form->isSubmitted() ) {
-            //als de variabele order in de sesion array niet bestaat maak deze aan
+            //als de variabele order in de session array niet bestaat maak deze aan
             if(!$session->get('order')) {
                 $session->set('order',[]);
             }
